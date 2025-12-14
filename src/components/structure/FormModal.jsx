@@ -1,25 +1,47 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function FormModal({
   title,
   children,
   label,
   submit = "Ok",
-  onSubmit = () => {}
+  onSubmit = () => {},
 }) {
   const [open, setOpen] = useState(false);
 
-  const handleSubmit = useCallback((evt) => {
-    evt.preventDefault();
-    onSubmit(evt);
+  const handleSubmit = useCallback(
+    (evt) => {
+      evt.preventDefault();
+      onSubmit(evt);
+      setOpen(false);
+    },
+    [onSubmit]
+  );
+
+  const handleDialogClick = useCallback((evt) => {
     setOpen(false);
-  }, [onSubmit]);
+  }, []);
+
+  const handleDialogInnerClick = useCallback((evt) => {
+    evt.stopPropagation();
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (evt) => {
+      if (evt.key === "Escape" && open) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
     <>
       <button onClick={() => setOpen(true)}>{label}</button>
-      <dialog open={open}>
-        <article>
+      <dialog open={open} onClick={handleDialogClick}>
+        <article onClick={handleDialogInnerClick}>
           <header>
             <button
               aria-label="Close"
