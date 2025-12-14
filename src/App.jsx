@@ -5,7 +5,7 @@ import ScoreRow from "./components/ScoreRow";
 import FormModal from "./components/structure/FormModal";
 import useLocalStorage from "react-localstorage-hook";
 
-const NUMBERS = ["One", "Two", "Three", "Four", "Five", "Six"];
+const NUMBERS = [1, 2, 3, 4, 5, 6];
 const SPECIALS = [
   "Three of a Kind",
   "Four of a Kind",
@@ -54,7 +54,42 @@ function App() {
   );
 
   return (
-    <Page name="Yahtzee Score Sheet">
+    <Page
+      name="Yahtzee Score Sheet"
+      header={
+        <>
+          <FormModal
+            label="👥"
+            title="Set Number of Players"
+            onSubmit={(evt) => {
+              setNumberOfPlayers(+evt.nativeEvent.submitter.value);
+            }}
+          >
+            <fieldset role="group">
+              <input type="submit" value="1" />
+              <input type="submit" value="2" />
+              <input type="submit" value="3" />
+              <input type="submit" value="4" />
+              <input type="submit" value="5" />
+            </fieldset>
+          </FormModal>
+          <FormModal
+            label="💥"
+            title="Really reset the game?"
+            onSubmit={(evt) => {
+              if (evt.nativeEvent.submitter.value === "Cancel") {
+                return;
+              }
+              setPlayerScores([]);
+            }}
+            hideSubmit
+          >
+            <input type="submit" value="Reset" />
+            <input type="submit" value="Cancel" />
+          </FormModal>
+        </>
+      }
+    >
       <table>
         <tr>
           <th>Upper Section</th>

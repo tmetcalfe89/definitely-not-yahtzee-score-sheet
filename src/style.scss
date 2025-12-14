@@ -48,3 +48,18 @@ tr th {
   background-color: var(--pico-color);
   color: var(--pico-background-color);
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > * {
+  margin: 0;
+}
+
+header > section {
+  display: flex;
+  gap: 0.5em;
+}
