@@ -49,7 +49,7 @@ tr th {
   color: var(--pico-background-color);
 }
 
-header {
+#pico-root > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
