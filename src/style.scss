@@ -1,10 +1,9 @@
 /* Custom Class-less version for React */
 @use "@picocss/pico/scss/pico" with (
-  
   // Define the root element used to target <header>, <main>, <footer>
   // with $enable-semantic-container and $enable-responsive-spacings
   $semantic-root-element: "#pico-root",
-  
+
   // Enable <header>, <main>, <footer> inside $semantic-root-element as containers
   $enable-semantic-container: true,
 
@@ -38,8 +37,14 @@
   border-bottom-style: none;
 }
 
-[data-tooltip]:not(a, button, input).term, .term {
+[data-tooltip]:not(a, button, input).term,
+.term {
   border-bottom-style: dotted;
   border-bottom-width: 1px;
   border-bottom-color: initial;
+}
+
+tr th {
+  background-color: var(--pico-color);
+  color: var(--pico-background-color);
 }
